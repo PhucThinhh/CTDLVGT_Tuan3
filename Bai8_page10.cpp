@@ -74,6 +74,43 @@ int SumOfNode(){
 	}
 	return s ;
 }
+void OutputEven() {
+	trav = head;
+	if (trav == NULL) {
+		printf("\nDanh sach rong.\n");
+	} else {
+		printf("\nCac gia tri chan trong danh sach:\n");
+		while (trav != NULL) {
+			if (trav->data % 2 == 0) {
+				printf("-> %d", trav->data);
+			}
+			trav = trav->next;
+		}
+		printf("\n");
+	}
+}
+int sumEven(){
+    trav = head ;
+    int sum = 0 ;
+    while (trav != NULL){
+        if (trav -> data % 2 == 0){
+            sum += trav -> data ;
+        }
+        trav = trav -> next;
+    }
+    return sum ;
+}
+int timMax(){
+    int max = head->data;
+    node *trav = head;
+    while(trav != NULL){
+        if(trav->data > max){
+            max = trav->data;
+        }
+        trav = trav->next;
+    }
+    return max;
+}
 int display(){
 	trav = head ;
 	if(trav == NULL)
@@ -102,9 +139,9 @@ int main()
 		printf("\n1.Tao danh sach");
 		printf("\n2.ADD First");
 		printf("\n3.ADD Last");
-		printf("\n4.Them giua");
-		printf("\n5.");
-		printf("\n6. ");
+		printf("\n4.Dem phan tu chan");
+		printf("\n5.Xuat cac so chan");
+		printf("\n6.Tong cac so chan ");
 		printf("\n7.");
 		printf("\n8.Xuat danh dach");
 		printf("\n9.exit\n");
@@ -146,6 +183,21 @@ int main()
 				{
 					printf("Tong cua cac node la: %d\n", SumOfNode());
 	                break;
+				}
+			case 5:
+				{
+					OutputEven() ;
+					break ;
+				}
+			case 6:
+				{
+					printf("\nTong cac so chan la: %d", sumEven());
+					break ;
+				}
+			case 7:
+				{
+					printf("\nMax la: %d", timMax());
+					break ;
 				}
 			case 9:
 			{
