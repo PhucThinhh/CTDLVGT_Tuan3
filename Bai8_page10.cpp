@@ -87,12 +87,31 @@ void OutputEven() {
 		printf("\nCac gia tri chan trong danh sach:\n");
 		while (trav != NULL) {
 			if (trav->data % 2 == 0) {
-				printf("-> %d", trav->data);
+				printf("->%d ", trav->data);
 			}
 			trav = trav->next;
 		}
 		printf("\n");
 	}
+}
+//xuat so le!!!
+void OutputOdd() {
+    node *temp = head;
+    bool foundOdd = false;
+
+    while (temp != NULL) {
+        if (temp->data % 2 != 0) {
+            printf("->%d ", temp->data);
+            foundOdd = true;
+        }
+        temp = temp->next;
+    }
+
+    if (!foundOdd) {
+        printf("Khong tim thay so le trong danh sach.");
+    }
+
+    printf("\n");
 }
 //Tong chan!!!
 int sumEven(){
@@ -105,6 +124,20 @@ int sumEven(){
         trav = trav -> next;
     }
     return sum ;
+}
+//Tong le!!!
+int sumOdd() {
+    int sum = 0;
+    node *temp = head;
+
+    while (temp != NULL) {
+        if (temp->data % 2 != 0) {
+            sum += temp->data;
+        }
+        temp = temp->next;
+    }
+
+    return sum;
 }
 //Tim Max
 int timMax(){
@@ -238,16 +271,18 @@ int main()
 		printf("\n1.Tao danh sach");
 		printf("\n2.ADD First");
 		printf("\n3.ADD Last");
-		printf("\n4.Tong node");
+		printf("\n4.Tong phan tu trong danh sach");
 		printf("\n5.Xuat cac so chan");
 		printf("\n6.Tong cac so chan ");
-		printf("\n7.Tim max");
-		printf("\n8.Xuat danh dach");
-		printf("\n10.Tim so nguyen to");
+		printf("\n7.Tong cac so le");
+		printf("\n8.Xuat cac so le");
+		printf("\n9.Tim max");
+		printf("\n10.Tim min");
 		printf("\n11.Xoa phan tu nho nhat");
 		printf("\n12.Xoa phan tu lon nhat");
-		printf("\n13.Tim min");
-		printf("\n9.exit\n");
+		printf("\n13.Tim so nguyen to");
+		printf("\n14.Xuat danh dach");
+		printf("\n15.exit\n");
 		printf("\nLua chon:");
 		scanf("%d",&ch);
 		switch(ch)
@@ -274,40 +309,65 @@ int main()
 				break;
 			}
 			case 3:
-				{
+			{
 					int value ;
 					printf("\nNhap gia tri muon them vao cuoi DS:");
 					scanf("%d", &value);
 					add_LList(value);
 					display();
 					break;
-				}
+			}
 			case 4:
-				{
-					printf("Tong cua cac node la: %d\n", SumOfNode());
+			{
+					printf("Tong cua cac phan tu la: %d\n", SumOfNode());
 	                break;
-				}
+			}
 			case 5:
-				{
+			{
 					OutputEven() ;
 					break ;
-				}
+			}
 			case 6:
-				{
+			{
 					printf("\nTong cac so chan la: %d", sumEven());
 					break ;
-				}
-			case 7:
-				{
+			}
+			 case 7: 
+			{
+                    int sum = sumOdd();
+                    printf("Tong cac so le trong danh sach: %d\n", sum);
+                    break;
+            }
+            case 8:
+			{
+                	OutputOdd();
+					break;
+			}
+			case 9:
+			{
 					printf("\nMax la: %d", timMax());
 					break ;
-				}
-			case 8:{
-				    display();
-				    break;
 			}
-			case 10:
-				{
+			case 10: 
+			{
+                    int min = timMin();
+                    printf("Phan tu nho nhat trong danh sach: %d\n", min);
+                    break;
+            }
+            case 11: 
+			{
+                    deleteSmallest();
+                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? nh? nh?t
+                    break;
+            }
+            case 12: 
+			{
+                    deleteLargest();
+                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? l?n nh?t
+                    break;
+            }
+            case 13:
+			{
 					node *temp = head;
                     printf("\nCac so nguyen to trong danh sach:\n");
                     bool foundPrime = false;
@@ -326,28 +386,16 @@ int main()
                     printf("\n");
                     break;
 
-				}
-				case 11: 
-				{
-                    deleteSmallest();
-                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? nh? nh?t
-                    break;
-                }
-                case 12: 
-				{
-                    deleteLargest();
-                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? l?n nh?t
-                    break;
-                }
-                case 13: {
-                    int min = timMin();
-                    printf("Phan tu nho nhat trong danh sach: %d\n", min);
-                    break;
-                }
-			    case 9:
-			    {
+			}
+			case 14:{
+				    display();
+				    break;
+			}
+			
+			case 15:
+			{
 				    exit(1);
-			    }
+			}
 			default:printf("\n****Chon sai****\n");
 		}
 	}
