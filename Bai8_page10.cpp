@@ -111,6 +111,18 @@ int timMax(){
     }
     return max;
 }
+// tim so nguyen to!!!
+bool isPrime(int num) {
+    if (num <= 1) {
+        return false;
+    }
+    for (int i = 2; i * i <= num; ++i) {
+        if (num % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
 int display(){
 	trav = head ;
 	if(trav == NULL)
@@ -144,6 +156,7 @@ int main()
 		printf("\n6.Tong cac so chan ");
 		printf("\n7.Tim max");
 		printf("\n8.Xuat danh dach");
+		printf("\n10.Tim so nguyen to");
 		printf("\n9.exit\n");
 		printf("\nLua chon:");
 		scanf("%d",&ch);
@@ -203,6 +216,28 @@ int main()
 				    display();
 				    break;
 			}
+			case 10:
+				{
+					node *temp = head;
+                    printf("\nCac so nguyen to trong danh sach:\n");
+                    bool foundPrime = false;
+
+                    while (temp != NULL) {
+                    if (isPrime(temp->data)) {
+                    printf("-> %d", temp->data);
+                    foundPrime = true;
+                      }
+                    temp = temp->next;
+                     }
+
+                    if (!foundPrime) {
+                    printf("Khong tim thay so nguyen to trong danh sach.");
+                     }
+
+                    printf("\n");
+                    break;
+
+				}
 			case 9:
 			{
 				exit(1);
