@@ -111,7 +111,7 @@ int timMax(){
     }
     return max;
 }
-// tim so nguyen to!!!
+// Tim so nguyen to!!!
 bool isPrime(int num) {
     if (num <= 1) {
         return false;
@@ -122,6 +122,36 @@ bool isPrime(int num) {
         }
     }
     return true;
+}
+//Xoa phan tu nho nhat !!!
+void deleteSmallest() {
+    if (head == NULL) {
+        printf("Danh sach rong, khong the xoa.\n");
+        return;
+    }
+
+    node *minNode = head;
+    node *prevMinNode = NULL;
+    node *temp = head->next;
+    while (temp != NULL) {
+        if (temp->data < minNode->data) {
+            minNode = temp;
+            prevMinNode = prevMinNode == NULL ? head : prevMinNode->next;
+        }
+        temp = temp->next;
+    }
+
+    if (prevMinNode == NULL) {
+        // N?u ph?n t? nh? nh?t là ph?n t? d?u tiên
+        head = head->next;
+        free(minNode);
+    } else {
+        prevMinNode->next = minNode->next;
+        free(minNode);
+    }
+
+    count--;
+    printf("Da xoa phan tu nho nhat trong danh sach.\n");
 }
 int display(){
 	trav = head ;
@@ -157,6 +187,7 @@ int main()
 		printf("\n7.Tim max");
 		printf("\n8.Xuat danh dach");
 		printf("\n10.Tim so nguyen to");
+		printf("\n11.Xoa phan tu nho nhat");
 		printf("\n9.exit\n");
 		printf("\nLua chon:");
 		scanf("%d",&ch);
@@ -233,11 +264,15 @@ int main()
                     if (!foundPrime) {
                     printf("Khong tim thay so nguyen to trong danh sach.");
                      }
-
                     printf("\n");
                     break;
 
 				}
+				case 11: {
+                deleteSmallest();
+                display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? nh? nh?t
+                break;
+    }
 			case 9:
 			{
 				exit(1);
