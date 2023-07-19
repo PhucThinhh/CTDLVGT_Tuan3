@@ -94,6 +94,18 @@ void OutputEven() {
 		printf("\n");
 	}
 }
+//Tong chan!!!
+int sumEven(){
+    trav = head ;
+    int sum = 0 ;
+    while (trav != NULL){
+        if (trav -> data % 2 == 0){
+            sum += trav -> data ;
+        }
+        trav = trav -> next;
+    }
+    return sum ;
+}
 //xuat so le!!!
 void OutputOdd() {
     node *temp = head;
@@ -112,18 +124,6 @@ void OutputOdd() {
     }
 
     printf("\n");
-}
-//Tong chan!!!
-int sumEven(){
-    trav = head ;
-    int sum = 0 ;
-    while (trav != NULL){
-        if (trav -> data % 2 == 0){
-            sum += trav -> data ;
-        }
-        trav = trav -> next;
-    }
-    return sum ;
 }
 //Tong le!!!
 int sumOdd() {
@@ -151,17 +151,24 @@ int timMax(){
     }
     return max;
 }
-// Tim so nguyen to!!!
-bool isPrime(int num) {
-    if (num <= 1) {
-        return false;
+//timMin
+int timMin() {
+    if (head == NULL) {
+        printf("Danh sach rong.\n");
+        return 0;
     }
-    for (int i = 2; i * i <= num; ++i) {
-        if (num % i == 0) {
-            return false;
+
+    int min = head->data;
+    node *temp = head->next;
+
+    while (temp != NULL) {
+        if (temp->data < min) {
+            min = temp->data;
         }
+        temp = temp->next;
     }
-    return true;
+
+    return min;
 }
 //Xoa phan tu nho nhat !!!
 void deleteSmallest() {
@@ -200,7 +207,6 @@ void deleteLargest() {
         printf("Danh sach rong, khong the xoa.\n");
         return;
     }
-
     node *maxNode = head;
     node *prevMaxNode = NULL;
     node *temp = head->next;
@@ -224,25 +230,108 @@ void deleteLargest() {
     count--;
     printf("Da xoa phan tu lon nhat trong danh sach.\n");
 }
-//timMin
-int timMin() {
-    if (head == NULL) {
-        printf("Danh sach rong.\n");
-        return 0;
+// Tim so nguyen to!!!
+bool isPrime(int num) {
+    if (num <= 1) {
+        return false;
     }
-
-    int min = head->data;
-    node *temp = head->next;
+    for (int i = 2; i * i <= num; ++i) {
+        if (num % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+//Dem so luong so nguyen to !!!
+int countPrimes() {
+    int count = 0;
+    node *temp = head;
 
     while (temp != NULL) {
-        if (temp->data < min) {
-            min = temp->data;
+        if (isPrime(temp->data)) {
+            count++;
         }
         temp = temp->next;
     }
 
-    return min;
+    return count;
 }
+//Xoa phan tu dau tien !!!
+void deleteFirst() {
+    if (head == NULL) {
+        printf("Danh sach rong, khong the xoa.\n");
+        return;
+    }
+
+    node *temp = head;
+    head = head->next;
+    free(temp);
+    count--;
+
+    printf("Da xoa phan tu dau tien trong danh sach.\n");
+}
+void deleteLast() {
+    if (head == NULL) {
+        printf("Danh sach rong, khong the xoa.\n");
+        return;
+    }
+
+    if (head->next == NULL) {
+        free(head);
+        head = NULL;
+        count--;
+        printf("Da xoa phan tu cuoi cung trong danh sach.\n");
+        return;
+    }
+
+    node *prev = NULL;
+    node *temp = head;
+    while (temp->next != NULL) {
+        prev = temp;
+        temp = temp->next;
+    }
+    prev->next = NULL;
+    free(temp);
+    count--;
+
+    printf("Da xoa phan tu cuoi cung trong danh sach.\n");
+}
+//Xoa phan tu p !!!
+void deleteElement(int value) {
+    if (head == NULL) {
+        printf("Danh sach rong, khong the xoa.\n");
+        return;
+    }
+
+    if (head->data == value) {
+        node *temp = head;
+        head = head->next;
+        free(temp);
+        count--;
+        printf("Da xoa phan tu dau tien trong danh sach.\n");
+        return;
+    }
+
+    node *prev = NULL;
+    node *temp = head;
+    while (temp != NULL && temp->data != value) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Khong tim thay phan tu co gia tri can xoa trong danh sach.\n");
+        return;
+    }
+
+    prev->next = temp->next;
+    free(temp);
+    count--;
+
+    printf("Da xoa phan tu co gia tri %d trong danh sach.\n", value);
+}
+
+
 int display(){
 	trav = head ;
 	if(trav == NULL)
@@ -274,15 +363,20 @@ int main()
 		printf("\n4.Tong phan tu trong danh sach");
 		printf("\n5.Xuat cac so chan");
 		printf("\n6.Tong cac so chan ");
-		printf("\n7.Tong cac so le");
-		printf("\n8.Xuat cac so le");
+		printf("\n7.Xuat cac so le");
+		printf("\n8.Tong cac so le");
 		printf("\n9.Tim max");
 		printf("\n10.Tim min");
 		printf("\n11.Xoa phan tu nho nhat");
 		printf("\n12.Xoa phan tu lon nhat");
 		printf("\n13.Tim so nguyen to");
-		printf("\n14.Xuat danh dach");
-		printf("\n15.exit\n");
+		printf("\n14.Dem so nguyen to");
+		printf("\n15.Xoa phan tu dau tien");
+		printf("\n16.Xoa phan tu cuoi cung");
+		printf("\n16.Xoa phan tu p");
+
+//		printf("\n15.Xuat danh dach");
+//		printf("\n16.exit\n");
 		printf("\nLua chon:");
 		scanf("%d",&ch);
 		switch(ch)
@@ -332,17 +426,17 @@ int main()
 					printf("\nTong cac so chan la: %d", sumEven());
 					break ;
 			}
-			 case 7: 
+            case 7:
+			{
+                	OutputOdd();
+					break;
+			}
+			case 8: 
 			{
                     int sum = sumOdd();
                     printf("Tong cac so le trong danh sach: %d\n", sum);
                     break;
             }
-            case 8:
-			{
-                	OutputOdd();
-					break;
-			}
 			case 9:
 			{
 					printf("\nMax la: %d", timMax());
@@ -374,7 +468,7 @@ int main()
 
                     while (temp != NULL) {
                     if (isPrime(temp->data)) {
-                    printf("-> %d", temp->data);
+                    printf("->%d ", temp->data);
                     foundPrime = true;
                       }
                     temp = temp->next;
@@ -387,15 +481,42 @@ int main()
                     break;
 
 			}
-			case 14:{
-				    display();
-				    break;
-			}
-			
-			case 15:
+			case 14: 
 			{
-				    exit(1);
-			}
+                    int count = countPrimes();
+                    printf("So luong so nguyen to trong danh sach: %d\n", count);
+                    break;
+            }
+           case 15: 
+		    {
+                    deleteFirst();
+                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? d?u tiên
+                    break;
+            }
+            case 16: 
+			{
+                    deleteLast();
+                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? cu?i cùng
+                    break;
+            }
+            case 17: 
+			{
+                    int value;
+                    printf("Nhap gia tri phan tu muon xoa: ");
+                    scanf("%d", &value);
+                    deleteElement(value);
+                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? du?c ch?n
+                    break;
+           }
+//			case 15:{
+//				    display();
+//				    break;
+//			}
+//			
+//			case 16:
+//			{
+//				    exit(1);
+//			}
 			default:printf("\n****Chon sai****\n");
 		}
 	}
