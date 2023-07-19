@@ -200,16 +200,17 @@ void deleteSmallest() {
     count--;
     printf("Da xoa phan tu nho nhat trong danh sach.\n");
 }
-
 //Xoa phan tu lon nhat !!!
-void deleteLargest() {
+void deleteLargestElement() {
     if (head == NULL) {
         printf("Danh sach rong, khong the xoa.\n");
         return;
     }
+
     node *maxNode = head;
     node *prevMaxNode = NULL;
     node *temp = head->next;
+
     while (temp != NULL) {
         if (temp->data > maxNode->data) {
             maxNode = temp;
@@ -219,6 +220,15 @@ void deleteLargest() {
         }
         temp = temp->next;
     }
+
+    // Delete all occurrences of the maximum value
+    while (prevMaxNode != NULL && prevMaxNode->next != NULL && prevMaxNode->next->data == maxNode->data) {
+        node *toBeDeleted = prevMaxNode->next;
+        prevMaxNode->next = toBeDeleted->next;
+        free(toBeDeleted);
+        count--;
+    }
+
     if (prevMaxNode == NULL) {
         // N?u ph?n t? l?n nh?t là ph?n t? d?u tiên
         head = head->next;
@@ -227,9 +237,12 @@ void deleteLargest() {
         prevMaxNode->next = maxNode->next;
         free(maxNode);
     }
+
     count--;
     printf("Da xoa phan tu lon nhat trong danh sach.\n");
 }
+
+
 // Tim so nguyen to!!!
 bool isPrime(int num) {
     if (num <= 1) {
@@ -270,6 +283,7 @@ void deleteFirst() {
 
     printf("Da xoa phan tu dau tien trong danh sach.\n");
 }
+//Xoa phan tu cuoi !!!
 void deleteLast() {
     if (head == NULL) {
         printf("Danh sach rong, khong the xoa.\n");
@@ -497,8 +511,9 @@ int main()
 		printf("\n17.Xoa phan tu X");
 		printf("\n18.Xoa phan tu sau X");
 		printf("\n19.Xoa phan tu truoc X");
-//		printf("\n15.Xuat danh dach");
-//		printf("\n16.exit\n");
+		printf("\n20.Tach danh sach thanh 2 danh sach (so nguyen to va cac so con lai)");
+		printf("\n21.Xuat danh dach");
+		printf("\n22.exit\n");
 		printf("\nLua chon:");
 		scanf("%d",&ch);
 		switch(ch)
@@ -576,11 +591,10 @@ int main()
                     display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? nh? nh?t
                     break;
             }
-            case 12: 
-			{
-                    deleteLargest();
-                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? l?n nh?t
-                    break;
+            case 12: {
+                deleteLargestElement();
+                display(); // Display the list after deleting the largest element
+                break;
             }
             case 13:
 			{
@@ -684,15 +698,15 @@ int main()
             }
 
 
-//			case 15:{
-//				    display();
-//				    break;
-//			}
-//			
-//			case 16:
-//			{
-//				    exit(1);
-//			}
+			case 21:{
+				    display();
+				    break;
+			}
+			
+			case 22:
+			{
+				    exit(1);
+			}
 			default:printf("\n****Chon sai****\n");
 		}
 	}
