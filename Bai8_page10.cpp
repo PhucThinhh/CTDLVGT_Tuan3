@@ -139,10 +139,10 @@ int main()
 		printf("\n1.Tao danh sach");
 		printf("\n2.ADD First");
 		printf("\n3.ADD Last");
-		printf("\n4.Dem phan tu chan");
+		printf("\n4.Tong node");
 		printf("\n5.Xuat cac so chan");
 		printf("\n6.Tong cac so chan ");
-		printf("\n7.");
+		printf("\n7.Tim max");
 		printf("\n8.Xuat danh dach");
 		printf("\n9.exit\n");
 		printf("\nLua chon:");
