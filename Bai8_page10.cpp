@@ -7,6 +7,7 @@ struct node
 	node *next;
 };
 node *head, *newn, *trav ;
+//tao danh sach !!!
 void create_list(){
 	int value ;
 	struct node *temp;
@@ -30,6 +31,7 @@ void create_list(){
 		count ++ ;
 	}
 }
+//them phan tu vao dau ds !!!
 void add_FList(int value){
 	newn =(struct node*)malloc(sizeof(struct node));
 	newn -> data =value ;
@@ -45,6 +47,7 @@ void add_FList(int value){
 		count ++;
 	}
 }
+//them phan tu vao cuoi ds !!!
 void add_LList(int value){
 	newn =(struct node*)malloc(sizeof(struct node));
 	struct node* temp;
@@ -65,6 +68,7 @@ void add_LList(int value){
 		count ++ ;
 	}
 }
+//Tong phan tu!!!
 int SumOfNode(){
 	node* temp = head ;
 	int s= 0;
@@ -74,6 +78,7 @@ int SumOfNode(){
 	}
 	return s ;
 }
+//Xuat so chan!!!
 void OutputEven() {
 	trav = head;
 	if (trav == NULL) {
@@ -89,6 +94,7 @@ void OutputEven() {
 		printf("\n");
 	}
 }
+//Tong chan!!!
 int sumEven(){
     trav = head ;
     int sum = 0 ;
@@ -100,6 +106,7 @@ int sumEven(){
     }
     return sum ;
 }
+//Tim Max
 int timMax(){
     int max = head->data;
     node *trav = head;
@@ -153,23 +160,7 @@ void deleteSmallest() {
     count--;
     printf("Da xoa phan tu nho nhat trong danh sach.\n");
 }
-int display(){
-	trav = head ;
-	if(trav == NULL)
-	{
-		printf("\n list is empty \n");
-		return 0;
-	}
-	else
-	{
-		printf("\n So phan tu cua danh sach la %d: \n", count);
-		while(trav!= NULL){
-			printf(" ->%d", trav -> data);
-			trav = trav -> next ;
-		}
-			printf("\n");
-	}
-}
+
 //Xoa phan tu lon nhat !!!
 void deleteLargest() {
     if (head == NULL) {
@@ -200,6 +191,42 @@ void deleteLargest() {
     count--;
     printf("Da xoa phan tu lon nhat trong danh sach.\n");
 }
+//timMin
+int timMin() {
+    if (head == NULL) {
+        printf("Danh sach rong.\n");
+        return 0;
+    }
+
+    int min = head->data;
+    node *temp = head->next;
+
+    while (temp != NULL) {
+        if (temp->data < min) {
+            min = temp->data;
+        }
+        temp = temp->next;
+    }
+
+    return min;
+}
+int display(){
+	trav = head ;
+	if(trav == NULL)
+	{
+		printf("\n list is empty \n");
+		return 0;
+	}
+	else
+	{
+		printf("\n So phan tu cua danh sach la %d: \n", count);
+		while(trav!= NULL){
+			printf(" ->%d", trav -> data);
+			trav = trav -> next ;
+		}
+			printf("\n");
+	}
+}
 int main()
 {
 	int ch=0;
@@ -219,6 +246,7 @@ int main()
 		printf("\n10.Tim so nguyen to");
 		printf("\n11.Xoa phan tu nho nhat");
 		printf("\n12.Xoa phan tu lon nhat");
+		printf("\n13.Tim min");
 		printf("\n9.exit\n");
 		printf("\nLua chon:");
 		scanf("%d",&ch);
@@ -309,6 +337,11 @@ int main()
 				{
                     deleteLargest();
                     display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? l?n nh?t
+                    break;
+                }
+                case 13: {
+                    int min = timMin();
+                    printf("Phan tu nho nhat trong danh sach: %d\n", min);
                     break;
                 }
 			    case 9:
