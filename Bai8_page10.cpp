@@ -391,6 +391,68 @@ void deleteBeforeX(int value) {
 
     printf("Da xoa phan tu dung truoc phan tu co gia tri X trong danh sach.\n");
 }
+void displayList(node* listHead) {
+    node* temp = listHead;
+
+    if (temp == NULL) {
+        printf("Danh sach rong.\n");
+        return;
+    }
+
+    while (temp != NULL) {
+        printf("->%d ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("\n");
+}
+//Tach danh sach !!!
+// T?o danh sách liên k?t m?i cho các s? nguyên t?
+struct node* headPrime = NULL;
+// T?o danh sách liên k?t m?i cho các s? còn l?i
+struct node* headNonPrime = NULL;
+
+void splitIntoPrimeAndNonPrimeLists() {
+    node* temp = head;
+
+    while (temp != NULL) {
+        if (isPrime(temp->data)) {
+            // N?u s? là s? nguyên t?, thêm vào danh sách liên k?t s? nguyên t?
+            if (headPrime == NULL) {
+                headPrime = (struct node*)malloc(sizeof(struct node));
+                headPrime->data = temp->data;
+                headPrime->next = NULL;
+            } else {
+                node* newPrimeNode = (struct node*)malloc(sizeof(struct node));
+                newPrimeNode->data = temp->data;
+                newPrimeNode->next = headPrime;
+                headPrime = newPrimeNode;
+            }
+        } else {
+            // N?u s? không là s? nguyên t?, thêm vào danh sách liên k?t s? còn l?i
+            if (headNonPrime == NULL) {
+                headNonPrime = (struct node*)malloc(sizeof(struct node));
+                headNonPrime->data = temp->data;
+                headNonPrime->next = NULL;
+            } else {
+                node* newNonPrimeNode = (struct node*)malloc(sizeof(struct node));
+                newNonPrimeNode->data = temp->data;
+                newNonPrimeNode->next = headNonPrime;
+                headNonPrime = newNonPrimeNode;
+            }
+        }
+
+        temp = temp->next;
+    }
+
+    printf("Da tach cac phan tu thanh hai danh sach: \n");
+    printf("Danh sach cac so nguyen to: ");
+    displayList(headPrime);
+    printf("Danh sach cac so con lai: ");
+    displayList(headNonPrime);
+}
+
+// Hàm hi?n th? danh sách liên k?t
 int display(){
 	trav = head ;
 	if(trav == NULL)
@@ -434,9 +496,7 @@ int main()
 		printf("\n16.Xoa phan tu cuoi cung");
 		printf("\n17.Xoa phan tu X");
 		printf("\n18.Xoa phan tu sau X");
-		printf("\n18.Xoa phan tu truoc X");
-
-
+		printf("\n19.Xoa phan tu truoc X");
 //		printf("\n15.Xuat danh dach");
 //		printf("\n16.exit\n");
 		printf("\nLua chon:");
@@ -587,6 +647,42 @@ int main()
                 display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? d?ng tru?c X
                 break;
             }
+            case 20:
+            {
+			    // T?o danh sách liên k?t m?i cho các s? nguyên t?
+			    struct node* headPrime = NULL;
+			    // T?o danh sách liên k?t m?i cho các s? còn l?i
+			    struct node* headNonPrime = NULL;
+			
+			    // Ch?c nang t?o danh sách và các phép toán khác ? dây (gi?ng nhu các case tru?c)
+			    // ...
+			
+			    // G?i hàm d? tách danh sách thành hai danh sách s? nguyên t? và s? còn l?i
+			    splitIntoPrimeAndNonPrimeLists();
+			
+			    // Hi?n th? danh sách g?c sau khi dã tách
+			    printf("Danh sach goc sau khi tach: ");
+			    display();
+			
+			    // Gi?i phóng b? nh? c?a danh sách s? nguyên t?
+			    node* tempPrime = headPrime;
+			    while (tempPrime != NULL) {
+			        node* next = tempPrime->next;
+			        free(tempPrime);
+			        tempPrime = next;
+			    }
+			
+			    // Gi?i phóng b? nh? c?a danh sách s? còn l?i
+			    node* tempNonPrime = headNonPrime;
+			    while (tempNonPrime != NULL) {
+			        node* next = tempNonPrime->next;
+			        free(tempNonPrime);
+			        tempNonPrime = next;
+			    }
+			
+			    break;
+            }
+
 
 //			case 15:{
 //				    display();
