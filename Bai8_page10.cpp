@@ -199,6 +199,10 @@ int main()
 					printf("\nMax la: %d", timMax());
 					break ;
 				}
+			case 8:{
+				    display();
+				    break;
+			}
 			case 9:
 			{
 				exit(1);
