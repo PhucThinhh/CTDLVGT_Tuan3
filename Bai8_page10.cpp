@@ -170,6 +170,36 @@ int display(){
 			printf("\n");
 	}
 }
+//Xoa phan tu lon nhat !!!
+void deleteLargest() {
+    if (head == NULL) {
+        printf("Danh sach rong, khong the xoa.\n");
+        return;
+    }
+
+    node *maxNode = head;
+    node *prevMaxNode = NULL;
+    node *temp = head->next;
+    while (temp != NULL) {
+        if (temp->data > maxNode->data) {
+            maxNode = temp;
+            prevMaxNode = head;
+        } else if (temp->data == maxNode->data) {
+            prevMaxNode = temp;
+        }
+        temp = temp->next;
+    }
+    if (prevMaxNode == NULL) {
+        // N?u ph?n t? l?n nh?t là ph?n t? d?u tiên
+        head = head->next;
+        free(maxNode);
+    } else {
+        prevMaxNode->next = maxNode->next;
+        free(maxNode);
+    }
+    count--;
+    printf("Da xoa phan tu lon nhat trong danh sach.\n");
+}
 int main()
 {
 	int ch=0;
@@ -188,6 +218,7 @@ int main()
 		printf("\n8.Xuat danh dach");
 		printf("\n10.Tim so nguyen to");
 		printf("\n11.Xoa phan tu nho nhat");
+		printf("\n12.Xoa phan tu lon nhat");
 		printf("\n9.exit\n");
 		printf("\nLua chon:");
 		scanf("%d",&ch);
@@ -268,15 +299,22 @@ int main()
                     break;
 
 				}
-				case 11: {
-                deleteSmallest();
-                display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? nh? nh?t
-                break;
-    }
-			case 9:
-			{
-				exit(1);
-			}
+				case 11: 
+				{
+                    deleteSmallest();
+                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? nh? nh?t
+                    break;
+                }
+                case 12: 
+				{
+                    deleteLargest();
+                    display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? l?n nh?t
+                    break;
+                }
+			    case 9:
+			    {
+				    exit(1);
+			    }
 			default:printf("\n****Chon sai****\n");
 		}
 	}
