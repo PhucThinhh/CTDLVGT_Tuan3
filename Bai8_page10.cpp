@@ -296,7 +296,7 @@ void deleteLast() {
 
     printf("Da xoa phan tu cuoi cung trong danh sach.\n");
 }
-//Xoa phan tu p !!!
+//Xoa phan tu X !!!
 void deleteElement(int value) {
     if (head == NULL) {
         printf("Danh sach rong, khong the xoa.\n");
@@ -330,8 +330,67 @@ void deleteElement(int value) {
 
     printf("Da xoa phan tu co gia tri %d trong danh sach.\n", value);
 }
+//Xoa phan tu dung sau X !!!
+void deleteAfterX(int value) {
+    if (head == NULL || head->next == NULL) {
+        printf("Khong co phan tu de xoa sau phan tu X.\n");
+        return;
+    }
 
+    node *temp = head;
+    while (temp != NULL && temp->data != value) {
+        temp = temp->next;
+    }
 
+    if (temp == NULL || temp->next == NULL) {
+        printf("Khong tim thay phan tu co gia tri X trong danh sach hoac khong co phan tu sau phan tu X.\n");
+        return;
+    }
+
+    node *toBeDeleted = temp->next;
+    temp->next = toBeDeleted->next;
+    free(toBeDeleted);
+    count--;
+
+    printf("Da xoa phan tu sau phan tu co gia tri X trong danh sach.\n");
+}
+//Xoa phan tu truoc X !!!
+void deleteBeforeX(int value) {
+    if (head == NULL || head->next == NULL) {
+        printf("Khong co phan tu de xoa truoc phan tu X.\n");
+        return;
+    }
+
+    if (head->data == value) {
+        printf("Khong co phan tu dung truoc phan tu X.\n");
+        return;
+    }
+
+    node *temp = head->next;
+    node *prev = head;
+    node *prevPrev = NULL;
+
+    while (temp != NULL && temp->data != value) {
+        prevPrev = prev;
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Khong tim thay phan tu co gia tri X trong danh sach.\n");
+        return;
+    }
+
+    if (prev == head) {
+        head = temp;
+    } else {
+        prevPrev->next = temp;
+    }
+    free(prev);
+    count--;
+
+    printf("Da xoa phan tu dung truoc phan tu co gia tri X trong danh sach.\n");
+}
 int display(){
 	trav = head ;
 	if(trav == NULL)
@@ -373,7 +432,10 @@ int main()
 		printf("\n14.Dem so nguyen to");
 		printf("\n15.Xoa phan tu dau tien");
 		printf("\n16.Xoa phan tu cuoi cung");
-		printf("\n16.Xoa phan tu p");
+		printf("\n17.Xoa phan tu X");
+		printf("\n18.Xoa phan tu sau X");
+		printf("\n18.Xoa phan tu truoc X");
+
 
 //		printf("\n15.Xuat danh dach");
 //		printf("\n16.exit\n");
@@ -479,7 +541,6 @@ int main()
                      }
                     printf("\n");
                     break;
-
 			}
 			case 14: 
 			{
@@ -507,7 +568,26 @@ int main()
                     deleteElement(value);
                     display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? du?c ch?n
                     break;
-           }
+            }
+            case 18: 
+			{
+                int value;
+                printf("Nhap gia tri cua phan tu X: ");
+                scanf("%d", &value);
+                deleteAfterX(value);
+                display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? d?ng sau X
+                break;    
+            }
+            case 19: 
+			{
+                int value;
+                printf("Nhap gia tri cua phan tu X: ");
+                scanf("%d", &value);
+                deleteBeforeX(value);
+                display(); // Hi?n th? l?i danh sách sau khi xóa ph?n t? d?ng tru?c X
+                break;
+            }
+
 //			case 15:{
 //				    display();
 //				    break;
